@@ -1,0 +1,20 @@
+{
+  "manifest": 1,
+  "plugin_version": "1.0.0",
+  "app_version": ">=0.2.7",
+  "plugin_id": "com.github.kash1dd.big_buttons_menu",
+  "name": "Big Buttons Menu Plugin",
+  "description": "Добавляет большие кнопки снизу для часто используемых команд.",
+  "description_en": "Adds large buttons at the bottom for frequently used commands.",
+  "description_ua": "Додає великі кнопки знизу для команд, що часто використовуються.",
+  "repo": "https://github.com/kash1dd/fph_big_buttons_menu_plugin",
+  "author": {
+    "name": "kash1dd",
+    "mail": "nonono@gmail.com",
+    "website": "https://github.com/kash1dd",
+    "social": {
+      "Telegram": "@Mark7227"
+    }
+  },
+  "entry_point": "src.plugin.BigButtonsMenuPlugin"
+}
