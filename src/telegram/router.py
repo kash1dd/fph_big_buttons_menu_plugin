@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+from contextlib import suppress
+
 from aiogram import F, Router
-from aiogram.types import Message
-from aiogram.filters import Command
+from aiogram.types import Message, CallbackQuery
 
 from funpayhub import exit_codes
 from funpayhub.lib import Translater
@@ -15,25 +16,41 @@ from funpayhub.app.main import FunPayHub
 from funpayhub.app.telegram.ui.ids import MenuIds
 
 from .kb import big_kb, hide_kb
+from .callbacks import HideKbCD, ShowKbCD
 
 
 router = Router()
+last_msg = None
 
 
-@router.message(Command('show_kb'))
-async def show_kb_handler(message: Message) -> None:
-    await message.answer(
-        '🤩 <b>Вот твоя большая клавиатура!</b>',
+@router.callback_query(ShowKbCD.filter())
+async def show_kb_handler(call: CallbackQuery) -> None:
+    global last_msg
+
+    if last_msg:
+        with suppress(Exception):
+            await last_msg.delete()
+
+    last_msg = await call.message.answer(
+        '<tg-emoji emoji-id="5461014912153165940">⌨️</tg-emoji>',
         reply_markup=big_kb(),
     )
+    await call.answer()
 
 
-@router.message(Command('hide_kb'))
-async def hide_kb_handler(message: Message) -> None:
-    await message.answer(
-        '😢 <b>Клавиатура скрыта :(</b>',
+@router.callback_query(HideKbCD.filter())
+async def hide_kb_handler(call: CallbackQuery) -> None:
+    global last_msg
+
+    if last_msg:
+        with suppress(Exception):
+            await last_msg.delete()
+
+    last_msg = await call.message.answer(
+        '<tg-emoji emoji-id="5460641228523576168">👋</tg-emoji>',
         reply_markup=hide_kb(),
     )
+    await call.answer()
 
 
 @router.message(F.text == '⚙️ Настройки')
