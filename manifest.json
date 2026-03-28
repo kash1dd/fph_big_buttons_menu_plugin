@@ -1,7 +1,7 @@
 {
   "manifest": 1,
-  "plugin_version": "1.0.1",
-  "app_version": ">=0.2.7",
+  "plugin_version": "1.0.2",
+  "app_version": ">=0.5.9",
   "plugin_id": "com.github.kash1dd.keyboard_menu",
   "name": "Keyboard Menu Plugin",
   "description": "Добавляет клавиатуру с крупными кнопками внизу для часто используемых команд.",
