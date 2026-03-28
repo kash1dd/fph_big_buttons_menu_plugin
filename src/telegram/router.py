@@ -8,8 +8,7 @@ from aiogram.types import Message, CallbackQuery
 from funpayhub import exit_codes
 from funpayhub.lib import Translater
 
-from funpayhub.lib.telegram.ui import UIRegistry, MenuContext
-from funpayhub.lib.base_app.telegram.app.ui.callbacks import OpenMenu
+from funpayhub.lib.telegram.ui import MenuContext
 from funpayhub.lib.base_app.telegram.app.properties.ui import NodeMenuContext
 
 from funpayhub.app.main import FunPayHub
@@ -54,22 +53,20 @@ async def hide_kb_handler(call: CallbackQuery) -> None:
 
 
 @router.message(F.text == '⚙️ Настройки')
-async def settings_handler(message: Message, tg_ui: UIRegistry) -> None:
+async def settings_handler(message: Message) -> None:
     await NodeMenuContext(
         menu_id=MenuIds.props_node,
         trigger=message,
         entry_path=[],
-        callback_override=OpenMenu(menu_id=MenuIds.props_node, context_data={'entry_path': []}),
-    ).build_and_answer(tg_ui, message)
+    ).answer_to(message)
 
 
 @router.message(F.text == '🐙 Меню')
-async def menu_handler(message: Message, tg_ui: UIRegistry) -> None:
+async def menu_handler(message: Message) -> None:
     await MenuContext(
         menu_id=MenuIds.main_menu,
         trigger=message,
-        callback_override=OpenMenu(menu_id=MenuIds.main_menu),
-    ).build_and_answer(tg_ui, message)
+    ).answer_to(message)
 
 
 @router.message(F.text == '♻️ Перезапустить')
