@@ -56,7 +56,6 @@ async def hide_kb_handler(call: CallbackQuery) -> None:
 async def settings_handler(message: Message) -> None:
     await NodeMenuContext(
         menu_id=MenuIds.props_node,
-        trigger=message,
         entry_path=[],
     ).answer_to(message)
 
@@ -65,7 +64,6 @@ async def settings_handler(message: Message) -> None:
 async def menu_handler(message: Message) -> None:
     await MenuContext(
         menu_id=MenuIds.main_menu,
-        trigger=message,
     ).answer_to(message)
 
 
